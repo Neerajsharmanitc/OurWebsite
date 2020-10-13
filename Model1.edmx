@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CloudAppDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="CloudAppDbModelStoreContainer">
+          <EntitySet Name="Class" EntityType="CloudAppDbModel.Store.Class" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Course" EntityType="CloudAppDbModel.Store.Course" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CourseClass" EntityType="CloudAppDbModel.Store.CourseClass" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Department" EntityType="CloudAppDbModel.Store.Department" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Faculty" EntityType="CloudAppDbModel.Store.Faculty" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TeacherCourse" EntityType="CloudAppDbModel.Store.TeacherCourse" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="CloudAppDbModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserFile" EntityType="CloudAppDbModel.Store.UserFile" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Class_Department" Association="CloudAppDbModel.Store.FK_Class_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Class" EntitySet="Class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Class" Association="CloudAppDbModel.Store.FK_Course_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseClass_Class" Association="CloudAppDbModel.Store.FK_CourseClass_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="CourseClass" EntitySet="CourseClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseClass_Course" Association="CloudAppDbModel.Store.FK_CourseClass_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseClass" EntitySet="CourseClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Faculty1" Association="CloudAppDbModel.Store.FK_Department_Faculty1">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherCourse_Course" Association="CloudAppDbModel.Store.FK_TeacherCourse_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="TeacherCourse" EntitySet="TeacherCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherCourse_User" Association="CloudAppDbModel.Store.FK_TeacherCourse_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="TeacherCourse" EntitySet="TeacherCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Class" Association="CloudAppDbModel.Store.FK_User_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Faculty" Association="CloudAppDbModel.Store.FK_User_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFile_Class" Association="CloudAppDbModel.Store.FK_UserFile_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="UserFile" EntitySet="UserFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFile_Course" Association="CloudAppDbModel.Store.FK_UserFile_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="UserFile" EntitySet="UserFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFile_User" Association="CloudAppDbModel.Store.FK_UserFile_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFile" EntitySet="UserFile" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CourseCode" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ClassID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseClass">
+          <Key>
+            <PropertyRef Name="CourseClassID" />
+          </Key>
+          <Property Name="CourseClassID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="ClassID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="FacultyID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="FacultyID" />
+          </Key>
+          <Property Name="FacultyID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FacultyName" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TeacherCourse">
+          <Key>
+            <PropertyRef Name="TeacherCourseID" />
+          </Key>
+          <Property Name="TeacherCourseID" Type="int" Nullable="false" />
+          <Property Name="TeacherID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserType" Type="int" Nullable="false" />
+          <Property Name="ClassID" Type="int" />
+          <Property Name="Year" Type="datetime" />
+          <Property Name="FacultyID" Type="int" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserFile">
+          <Key>
+            <PropertyRef Name="UserFileID" />
+          </Key>
+          <Property Name="UserFileID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="FileName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="FileSize" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="FileType" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="UploadTime" Type="datetime2" Nullable="false" />
+          <Property Name="UploaderID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CourseID" Type="int" />
+          <Property Name="ClassID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Class_Department">
+          <End Role="Department" Type="CloudAppDbModel.Store.Department" Multiplicity="1" />
+          <End Role="Class" Type="CloudAppDbModel.Store.Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Class">
+          <End Role="Class" Type="CloudAppDbModel.Store.Class" Multiplicity="1" />
+          <End Role="Course" Type="CloudAppDbModel.Store.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseClass_Class">
+          <End Role="Class" Type="CloudAppDbModel.Store.Class" Multiplicity="1" />
+          <End Role="CourseClass" Type="CloudAppDbModel.Store.CourseClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="CourseClass">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseClass_Course">
+          <End Role="Course" Type="CloudAppDbModel.Store.Course" Multiplicity="1" />
+          <End Role="CourseClass" Type="CloudAppDbModel.Store.CourseClass" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseClass">
+              <PropertyRef Name="CourseClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Faculty1">
+          <End Role="Faculty" Type="CloudAppDbModel.Store.Faculty" Multiplicity="1" />
+          <End Role="Department" Type="CloudAppDbModel.Store.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="FacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherCourse_Course">
+          <End Role="Course" Type="CloudAppDbModel.Store.Course" Multiplicity="1" />
+          <End Role="TeacherCourse" Type="CloudAppDbModel.Store.TeacherCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="TeacherCourse">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherCourse_User">
+          <End Role="User" Type="CloudAppDbModel.Store.User" Multiplicity="1" />
+          <End Role="TeacherCourse" Type="CloudAppDbModel.Store.TeacherCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="TeacherCourse">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Class">
+          <End Role="Class" Type="CloudAppDbModel.Store.Class" Multiplicity="0..1" />
+          <End Role="User" Type="CloudAppDbModel.Store.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Faculty">
+          <End Role="Faculty" Type="CloudAppDbModel.Store.Faculty" Multiplicity="0..1" />
+          <End Role="User" Type="CloudAppDbModel.Store.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="FacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFile_Class">
+          <End Role="Class" Type="CloudAppDbModel.Store.Class" Multiplicity="0..1" />
+          <End Role="UserFile" Type="CloudAppDbModel.Store.UserFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="UserFile">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFile_Course">
+          <End Role="Course" Type="CloudAppDbModel.Store.Course" Multiplicity="0..1" />
+          <End Role="UserFile" Type="CloudAppDbModel.Store.UserFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="UserFile">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFile_User">
+          <End Role="User" Type="CloudAppDbModel.Store.User" Multiplicity="1" />
+          <End Role="UserFile" Type="CloudAppDbModel.Store.UserFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserFile">
+              <PropertyRef Name="UploaderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CloudAppDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CloudAppDbEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Class" EntityType="CloudAppDbModel.Class" />
+          <EntitySet Name="Course" EntityType="CloudAppDbModel.Course" />
+          <EntitySet Name="CourseClass" EntityType="CloudAppDbModel.CourseClass" />
+          <EntitySet Name="Department" EntityType="CloudAppDbModel.Department" />
+          <EntitySet Name="Faculty" EntityType="CloudAppDbModel.Faculty" />
+          <EntitySet Name="TeacherCourse" EntityType="CloudAppDbModel.TeacherCourse" />
+          <EntitySet Name="User" EntityType="CloudAppDbModel.User" />
+          <EntitySet Name="UserFile" EntityType="CloudAppDbModel.UserFile" />
+          <AssociationSet Name="FK_Class_Department" Association="CloudAppDbModel.FK_Class_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Class" EntitySet="Class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseClass_Class" Association="CloudAppDbModel.FK_CourseClass_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="CourseClass" EntitySet="CourseClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Class" Association="CloudAppDbModel.FK_User_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFile_Class" Association="CloudAppDbModel.FK_UserFile_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="UserFile" EntitySet="UserFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseClass_Course" Association="CloudAppDbModel.FK_CourseClass_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseClass" EntitySet="CourseClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherCourse_Course" Association="CloudAppDbModel.FK_TeacherCourse_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="TeacherCourse" EntitySet="TeacherCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFile_Course" Association="CloudAppDbModel.FK_UserFile_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="UserFile" EntitySet="UserFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Faculty1" Association="CloudAppDbModel.FK_Department_Faculty1">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherCourse_User" Association="CloudAppDbModel.FK_TeacherCourse_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="TeacherCourse" EntitySet="TeacherCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFile_User" Association="CloudAppDbModel.FK_UserFile_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFile" EntitySet="UserFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Class" Association="CloudAppDbModel.FK_Course_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Faculty" Association="CloudAppDbModel.FK_User_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="ClassName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Department" Relationship="CloudAppDbModel.FK_Class_Department" FromRole="Class" ToRole="Department" />
+          <NavigationProperty Name="CourseClass" Relationship="CloudAppDbModel.FK_CourseClass_Class" FromRole="Class" ToRole="CourseClass" />
+          <NavigationProperty Name="User" Relationship="CloudAppDbModel.FK_User_Class" FromRole="Class" ToRole="User" />
+          <NavigationProperty Name="UserFile" Relationship="CloudAppDbModel.FK_UserFile_Class" FromRole="Class" ToRole="UserFile" />
+          <NavigationProperty Name="Course" Relationship="CloudAppDbModel.FK_Course_Class" FromRole="Class" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CourseCode" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="CourseClass" Relationship="CloudAppDbModel.FK_CourseClass_Course" FromRole="Course" ToRole="CourseClass" />
+          <NavigationProperty Name="TeacherCourse" Relationship="CloudAppDbModel.FK_TeacherCourse_Course" FromRole="Course" ToRole="TeacherCourse" />
+          <NavigationProperty Name="UserFile" Relationship="CloudAppDbModel.FK_UserFile_Course" FromRole="Course" ToRole="UserFile" />
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="CloudAppDbModel.FK_Course_Class" FromRole="Course" ToRole="Class" />
+        </EntityType>
+        <EntityType Name="CourseClass">
+          <Key>
+            <PropertyRef Name="CourseClassID" />
+          </Key>
+          <Property Name="CourseClassID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="ClassID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="CloudAppDbModel.FK_CourseClass_Class" FromRole="CourseClass" ToRole="Class" />
+          <NavigationProperty Name="Course" Relationship="CloudAppDbModel.FK_CourseClass_Course" FromRole="CourseClass" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FacultyID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="CloudAppDbModel.FK_Class_Department" FromRole="Department" ToRole="Class" />
+          <NavigationProperty Name="Faculty" Relationship="CloudAppDbModel.FK_Department_Faculty1" FromRole="Department" ToRole="Faculty" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="FacultyID" />
+          </Key>
+          <Property Name="FacultyID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FacultyName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Department" Relationship="CloudAppDbModel.FK_Department_Faculty1" FromRole="Faculty" ToRole="Department" />
+          <NavigationProperty Name="User" Relationship="CloudAppDbModel.FK_User_Faculty" FromRole="Faculty" ToRole="User" />
+        </EntityType>
+        <EntityType Name="TeacherCourse">
+          <Key>
+            <PropertyRef Name="TeacherCourseID" />
+          </Key>
+          <Property Name="TeacherCourseID" Type="Int32" Nullable="false" />
+          <Property Name="TeacherID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="CloudAppDbModel.FK_TeacherCourse_Course" FromRole="TeacherCourse" ToRole="Course" />
+          <NavigationProperty Name="User" Relationship="CloudAppDbModel.FK_TeacherCourse_User" FromRole="TeacherCourse" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="UserType" Type="Int32" Nullable="false" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="Year" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Class" Relationship="CloudAppDbModel.FK_User_Class" FromRole="User" ToRole="Class" />
+          <NavigationProperty Name="TeacherCourse" Relationship="CloudAppDbModel.FK_TeacherCourse_User" FromRole="User" ToRole="TeacherCourse" />
+          <NavigationProperty Name="UserFile" Relationship="CloudAppDbModel.FK_UserFile_User" FromRole="User" ToRole="UserFile" />
+          <Property Type="Int32" Name="FacultyID" />
+          <NavigationProperty Name="Faculty" Relationship="CloudAppDbModel.FK_User_Faculty" FromRole="User" ToRole="Faculty" />
+          <Property Type="String" Name="UserEmail" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserFile">
+          <Key>
+            <PropertyRef Name="UserFileID" />
+          </Key>
+          <Property Name="UserFileID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FileSize" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FileType" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="UploadTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UploaderID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CourseID" Type="Int32" />
+          <Property Name="ClassID" Type="Int32" />
+          <NavigationProperty Name="Class" Relationship="CloudAppDbModel.FK_UserFile_Class" FromRole="UserFile" ToRole="Class" />
+          <NavigationProperty Name="Course" Relationship="CloudAppDbModel.FK_UserFile_Course" FromRole="UserFile" ToRole="Course" />
+          <NavigationProperty Name="User" Relationship="CloudAppDbModel.FK_UserFile_User" FromRole="UserFile" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Class_Department">
+          <End Role="Department" Type="CloudAppDbModel.Department" Multiplicity="1" />
+          <End Role="Class" Type="CloudAppDbModel.Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseClass_Class">
+          <End Role="Class" Type="CloudAppDbModel.Class" Multiplicity="1" />
+          <End Role="CourseClass" Type="CloudAppDbModel.CourseClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="CourseClass">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Class">
+          <End Role="Class" Type="CloudAppDbModel.Class" Multiplicity="0..1" />
+          <End Role="User" Type="CloudAppDbModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFile_Class">
+          <End Role="Class" Type="CloudAppDbModel.Class" Multiplicity="0..1" />
+          <End Role="UserFile" Type="CloudAppDbModel.UserFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="UserFile">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseClass_Course">
+          <End Role="Course" Type="CloudAppDbModel.Course" Multiplicity="1" />
+          <End Role="CourseClass" Type="CloudAppDbModel.CourseClass" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseClass">
+              <PropertyRef Name="CourseClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherCourse_Course">
+          <End Role="Course" Type="CloudAppDbModel.Course" Multiplicity="1" />
+          <End Role="TeacherCourse" Type="CloudAppDbModel.TeacherCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="TeacherCourse">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFile_Course">
+          <End Role="Course" Type="CloudAppDbModel.Course" Multiplicity="0..1" />
+          <End Role="UserFile" Type="CloudAppDbModel.UserFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="UserFile">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Faculty1">
+          <End Role="Faculty" Type="CloudAppDbModel.Faculty" Multiplicity="1" />
+          <End Role="Department" Type="CloudAppDbModel.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="FacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherCourse_User">
+          <End Role="User" Type="CloudAppDbModel.User" Multiplicity="1" />
+          <End Role="TeacherCourse" Type="CloudAppDbModel.TeacherCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="TeacherCourse">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFile_User">
+          <End Role="User" Type="CloudAppDbModel.User" Multiplicity="1" />
+          <End Role="UserFile" Type="CloudAppDbModel.UserFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserFile">
+              <PropertyRef Name="UploaderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Class">
+          <End Type="CloudAppDbModel.Class" Role="Class" Multiplicity="1" />
+          <End Type="CloudAppDbModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Faculty">
+          <End Type="CloudAppDbModel.Faculty" Role="Faculty" Multiplicity="0..1" />
+          <End Type="CloudAppDbModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="FacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CloudAppDbModelStoreContainer" CdmEntityContainer="CloudAppDbEntities">
+          <EntitySetMapping Name="Class">
+            <EntityTypeMapping TypeName="CloudAppDbModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Course">
+            <EntityTypeMapping TypeName="CloudAppDbModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseClass">
+            <EntityTypeMapping TypeName="CloudAppDbModel.CourseClass">
+              <MappingFragment StoreEntitySet="CourseClass">
+                <ScalarProperty Name="CourseClassID" ColumnName="CourseClassID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="CloudAppDbModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Faculty">
+            <EntityTypeMapping TypeName="CloudAppDbModel.Faculty">
+              <MappingFragment StoreEntitySet="Faculty">
+                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeacherCourse">
+            <EntityTypeMapping TypeName="CloudAppDbModel.TeacherCourse">
+              <MappingFragment StoreEntitySet="TeacherCourse">
+                <ScalarProperty Name="TeacherCourseID" ColumnName="TeacherCourseID" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="CloudAppDbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserFile">
+            <EntityTypeMapping TypeName="CloudAppDbModel.UserFile">
+              <MappingFragment StoreEntitySet="UserFile">
+                <ScalarProperty Name="UserFileID" ColumnName="UserFileID" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
+                <ScalarProperty Name="UploaderID" ColumnName="UploaderID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
